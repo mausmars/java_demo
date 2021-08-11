@@ -1,0 +1,66 @@
+buildscript {
+    ext {
+        vertxVersion = "4.0.2"
+        igniteVersion = "2.9.1"
+        kotlinVersion = '1.4.21'
+        log4jVersion = "2.11.0"
+        protostuffVersion = "1.6.0"
+        mongoDriverVersion = "3.12.7"
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.4.21'
+}
+
+apply plugin: 'kotlin'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava{
+    options.encoding = "UTF-8"
+
+    options.compilerArgs << '-XDignore.symbol.file'
+    options.fork = true // may not needed on 1.8
+    options.forkOptions.executable = 'javac' // may not needed on 1.8
+}
+
+compileTestJava{
+    options.encoding = "UTF-8"
+
+    options.compilerArgs << '-XDignore.symbol.file'
+    options.fork = true // may not needed on 1.8
+    options.forkOptions.executable = 'javac' // may not needed on 1.8
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+sourceSets {
+    main {
+        java.srcDirs += 'src/main/generate'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
