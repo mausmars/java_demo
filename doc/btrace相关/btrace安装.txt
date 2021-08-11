@@ -1,0 +1,6 @@
+https://github.com/btraceio/btrace
+https://github.com/btraceio/btrace/releases/tag/v2.2.0
+
+
+export BTRACE_HOME=/software/btrace
+export PATH=$BTRACE_HOME/bin:$PATH
